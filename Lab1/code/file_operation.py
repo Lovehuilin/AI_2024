@@ -18,6 +18,7 @@ class StuData():
                 line_data.append(line.split()[2])
                 line_data.append(int(line.split()[3]))
                 self.data.append(line_data)  # 将整行数据作为一个元素添加到self.data中
+        file_object.close() # 养成随手关文件的好习惯
     
     # 类的AddData方法，用于向类中添加学生信息
     def AddData(self, name, stu_num, gender, age):
@@ -35,6 +36,11 @@ class StuData():
         elif attr == 'age':
             self.data.sort(key=take_stu_age)
         
+    def ExportFile(self, filename):
+        with open(filename, 'w') as file_object:
+            file_object = []
+            for line in self.data:
+                file_object.append(line)
 
 # 实例化StuData类，读取"student_data.txt"文件，以下是测试用例
 
