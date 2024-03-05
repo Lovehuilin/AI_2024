@@ -1,36 +1,28 @@
 def take_stu_num(elem):
-    return elem[1]
+    return elem[1]  # 获取学生学号
+
 def take_stu_age(elem):
-    return elem[3]
+    return elem[3]  # 获取学生年龄
 
 class StuData():
-    # 类的初始化方法
     def __init__(self, filename):
-        self.data = []  # 初始化一个空列表来存储数据
-        # 打开指定文件进行读取
+        self.data = []  # 初始化存储数据的列表
+        # 读取文件
         with open(filename) as file_object:
-            # 逐行读取文件内容
             for line in file_object.readlines():
-                line_data = [] 
-                # 将当前行按空格分割，遍历其中的每个元素
-                line_data.append(line.split()[0])
-                line_data.append(line.split()[1])
-                line_data.append(line.split()[2])
-                line_data.append(int(line.split()[3]))
-                self.data.append(line_data)  # 将整行数据作为一个元素添加到self.data中
-        file_object.close() # 养成随手关文件的好习惯
+                line_data = []  # 临时存储解析的每行数据
+                # 分割每行数据并转换类型，最后加入到self.data中
+                line_data.append(line.split()[0])  # 姓名
+                line_data.append(line.split()[1])  # 学号
+                line_data.append(line.split()[2])  # 性别
+                line_data.append(int(line.split()[3]))  # 年龄
+                self.data.append(line_data)
     
-    # 类的AddData方法，用于向类中添加学生信息
     def AddData(self, name, stu_num, gender, age):
-        line_data = []
-        line_data.append(name)
-        line_data.append(stu_num)
-        line_data.append(gender)
-        line_data.append(age)
-        self.data.append(line_data)
+        self.data.append([name, stu_num, gender, age])  # 添加新的学生信息
 
-    
     def SortData(self, attr):
+        # 根据指定属性对数据进行排序
         if attr == 'stu_num':
             self.data.sort(key=take_stu_num)
         elif attr == 'age':
@@ -38,12 +30,13 @@ class StuData():
         
     def ExportFile(self, filename):
         with open(filename, 'w') as file_object:
-            file_object = []
             for line in self.data:
-                file_object.append(line)
-
-# 实例化StuData类，读取"student_data.txt"文件，以下是测试用例
-
-me = StuData("student_data.txt")
-me.SortData('stu_num')
-print(me.data)  # 打印出处理后的数据列表
+                file_object.write(line[0])
+                file_object.write(' ')
+                file_object.write(line[1])
+                file_object.write(' ')
+                file_object.write(line[2])
+                file_object.write(' ')
+                file_object.write(str(line[3]))
+                file_object.write('\n')
+        file_object.close()
