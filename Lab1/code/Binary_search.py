@@ -24,3 +24,17 @@ def BinarySearch(nums, target):
         return r  # 如果是，返回其索引
     else:
         return -1  # 如果不是，返回-1表示未找到
+
+# 以下为测试程序
+array = [1, 3, 8, 12, 15, 17, 22]
+target_1 = 12 # 测试target在array中间的情况
+target_2 = 1 # 测试target在array左边界的情况
+target_3 = 22 # 测试target在array右边界的情况
+target_4 = 0 # 测试target超出array左边界的情况
+target_5 = 25 # 测试target超出array右边界的情况
+index_1 = BinarySearch(array, target_1)
+index_2 = BinarySearch(array, target_2)
+index_3 = BinarySearch(array, target_3)
+index_4 = BinarySearch(array, target_4)
+index_5 = BinarySearch(array, target_5)
+print("index of target_1 is %d\nindex of target_2 is %d\nindex of target_3 is %d\nindex of target_4 is %d\nindex of target_5 is %d\n" % (index_1, index_2, index_3, index_4, index_5))
