@@ -35,3 +35,13 @@ def MatrixMul(A, B):
 
 #以下为测试代码，随机生成两个矩阵检测计算结果是否正确
 import numpy as np
+A = np.random.randint(0, 11, size=(3, 3))
+B = np.random.randint(0, 11, size=(3, 3))
+Mul = MatrixMul(A, B)
+Add = MatrixAdd(A, B)
+print(f"matrix A:\n{A}\n")
+print(f"matrix B:\n{B}\n")
+print(f"matrix A * B:\n")
+print(f"{Mul}\n")
+print(f"matrix A + B:\n")
+print(f"{Add}\n")
