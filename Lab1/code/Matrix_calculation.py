@@ -32,3 +32,6 @@ def MatrixMul(A, B):
             tmp.append(value)  # 将点乘结果添加到临时列表中
         C.append(tmp)  # 将临时列表添加到结果矩阵中
     return C
+
+#以下为测试代码，随机生成两个矩阵检测计算结果是否正确
+import numpy as np
