@@ -1,5 +1,5 @@
 def take_stu_num(elem):
-    return elem[1]  # 获取学生学号
+    return int(elem[1])  # 获取学生学号
 
 def take_stu_age(elem):
     return elem[3]  # 获取学生年龄
@@ -40,3 +40,32 @@ class StuData():
                 file_object.write(str(line[3]))
                 file_object.write('\n')
         file_object.close()
+
+# 以下是测试代码，用于测试类的各个方法是否能正确执行
+
+test_filename = "student_data.txt"
+
+# 实例化StuData类并测试方法
+def test_class_methods():
+    # 初始化StuData类
+    student_data = StuData(test_filename)
+    print(student_data.data)
+
+    # 添加新的学生信息
+    student_data.AddData("John", "1004", "Male", 23)
+    print(student_data.data)
+
+    # 根据学号排序
+    student_data.SortData('stu_num')
+    print(student_data.data)
+
+    # 根据年龄排序
+    student_data.SortData('age')
+    print(student_data.data)
+
+    # 导出数据到文件
+    student_data.ExportFile('exported_data.txt')
+
+# 运行测试
+if __name__ == "__main__":
+    test_class_methods()
