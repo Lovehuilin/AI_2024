@@ -17,6 +17,19 @@
     :param clause: tuple 输入的子句集元组，元素为每个子句
     :param clause_str: 输入的子句集的字符串形式
 """
+# 合一化判断
+def is_unifiable(element1, element2):
+    predicate1, t1 = element1.split('(')
+    predicate2, t2 = element2.split('(')
+    t1.replace(')', '')
+    t2.replace(')', '')
+    if (predicate2 - predicate1 == '~' or predicate1 - predicate2 == '~'):
+        
+    else:
+        return False
+
+
+
 # 处理输入字符串为子句集集合
 import re
 clause_num = int(input()) # clause_num: number of clauses

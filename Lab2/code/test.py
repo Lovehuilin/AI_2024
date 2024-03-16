@@ -1,36 +1,52 @@
-def parse_element(element):
-    """简单解析元素，假设格式为 'A(x)' """
-    func, vars = element.split('(')
-    vars = vars.rstrip(')')
-    return func, vars.split(',')
+import re
+def compare_and_map(expr1, expr2):
+    """
+    比较两个表达式expr1和expr2，考虑函数名可能相差一个'~'，并比较参数列表。
+    返回所有可能的变量到常量的映射列表，或特定的消息。
+    """
+    expr1 = expr1.replace(' ', '')
+    expr2 = expr2.replace(' ', '')
+    pattern = re.compile(r'([~]?[A-Za-z]+)\(([^)]+)\)')
+    match1 = pattern.match(expr1)
+    match2 = pattern.match(expr2)
 
-def can_unify(element1, element2):
-    """检查是否可以合一化，并返回合一化方案，如果不可以则返回None"""
-    func1, vars1 = parse_element(element1)
-    func2, vars2 = parse_element(element2)
-    if func1 != func2 or len(vars1) != len(vars2):
+    if not match1 or not match2:
+        return "格式不匹配"
+
+    func1, args1 = match1.groups()
+    func2, args2 = match2.groups()
+
+    # 检查函数名是否满足条件
+    if func1 != func2 and func1.strip('~') != func2.strip('~'):
+        return "函数名不匹配"
+
+    args1 = args1.split(',')
+    args2 = args2.split(',')
+
+    if len(args1) != len(args2):
+        return "参数数量不匹配"
+
+    variables = {'x', 'y', 'z', 'u', 'v', 'w'}
+    mappings = []
+
+    for arg1, arg2 in zip(args1, args2):
+        arg1, arg2 = arg1.strip(), arg2.strip()
+        if arg1 in variables and arg2 not in variables:
+            mappings.append(f'{arg1} = {arg2}')
+        elif arg2 in variables and arg1 not in variables:
+            mappings.append(f'{arg2} = {arg1}')
+        elif arg1 in variables and arg2 in variables:
+            if arg1 != arg2:
+                return False
+            continue
+        elif arg1 != arg2:
+            return False
+
+    if not mappings:
         return None
-    substitution = {}
-    for var1, var2 in zip(vars1, vars2):
-        if var1.islower():  # 假设变量是小写的
-            substitution[var1] = var2
-        elif var1 != var2:
-            return None
-    return substitution
+    return '; '.join(mappings)
 
-# 假设集合
-clauses = {
-    ('A(mike)',),
-    ('A(tony)',),
-}
-
-# 遍历集合中的每个元组
-for clause1 in clauses:
-    for element1 in clause1:
-        for clause2 in clauses:
-            if clause1 != clause2:
-                for element2 in clause2:
-                    # 尝试合一化
-                    substitution = can_unify(element1, element2)
-                    if substitution:
-                        print(f"可以合一化: {element1} 和 {element2} 使用 {substitution}")
+# 示例
+expr1 = "~F(y)"
+expr2 = "F(x)"
+print(compare_and_map(expr1, expr2))
