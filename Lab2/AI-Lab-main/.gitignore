@@ -1,6 +1,0 @@
-# Ignore IDEA settings
-.idea/
-
-# Ignore cache file
-.pytest_cache
-*.pyc
