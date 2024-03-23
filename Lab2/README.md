@@ -10,8 +10,6 @@ $$
 
 - `Report.md`: Report. Written based on `myResolutionFOL.py`.
 
-- `Task.pdf`: Task description.
-
 - `Tutor.pdf`: Tutor slides.
 
 - `code/test.py`: The test function using`myResolutionFOL`.
