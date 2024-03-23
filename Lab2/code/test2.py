@@ -1,43 +1,49 @@
-def resolve(clause1, clause2):
-    """
-    尝试对clause1和clause2进行归结，并返回归结结果。
-    如果不能归结，返回None。
-    """
-    # 这里添加具体的归结逻辑
-    # 示例：返回一个固定的归结结果，实际应用中需要根据clause1和clause2进行计算
-    return "示例归结结果"
+def is_var(x):
+    if (x == 'x' or x == 'y' or x == 'z'):
+        return True
+    elif (x == 'u' or x == 'v' or x == 'w'):
+        return True
+    else:
+        return False
 
-def simulate_resolution(clauses):
-    """
-    模拟归结推理过程，并打印出每一步。
-    """
-    steps = []  # 存储归结步骤
-    
-    # 示例：假设已经选择了特定的子句进行归结，实际应用中需要实现选择逻辑
-    # 这里仅为展示如何记录和输出步骤
-    steps.append(("R[2,11a](w=mike)", "¬C(mike),S(mike)"))
-    steps.append(("R[2,6a](x=mike)", "S(mike),C(mike)"))
-    steps.append(("R[5,9a](u=snow)", "¬L(mike,snow)"))
-    steps.append(("R[12b,13a]", "S(mike)"))
-    steps.append(("R[8a,14](z=mike)", "¬S(mike)"))
-    steps.append(("R[15,16]", "[]"))
+def unify_atoms(L1, L2):
+    # 若L1或L2为一原子
+    if isinstance(L1, tuple) and isinstance(L2, tuple) and len(L1) == 1 and len(L2) == 1:
+        atom1, atom2 = L1[0], L2[0]
+        
+        # 若L1和L2恒等
+        if atom1 == atom2:
+            return "NIL"
+        
+        # 检查是否为变量形式，假设变量形式为'A(x)'等
+        if "(" in atom1 and ")" in atom1:
+            var1 = atom1[atom1.find("(")+1:atom1.find(")")]
+        else:
+            var1 = None
+            
+        if "(" in atom2 and ")" in atom2:
+            var2 = atom2[atom2.find("(")+1:atom2.find(")")]
+        else:
+            var2 = None
+        
+        # 若L1为一变量
+        if var1 and is_var(var1):
+            # 若L1出现在L2中
+            if var1 in atom2:
+                return "F"
+            else:
+                return (atom1.replace(var1, var2), var1, var2)
+        
+        # 若L2为一变量
+        if var2 and is_var(var2):
+            # 若L2出现在L1中
+            if var2 in atom1:
+                return "F"
+            else:
+                return (atom2.replace(var2, var1), var2, var1)
+        
+    # 否则返回F
+    return "F"
 
-    for step in steps:
-        print(f"{step[0]} = {step[1]}")
-
-# 期望的输入子句集
-clauses = [
-    "A(tony)",
-    "A(mike)",
-    "A(john)",
-    "L(tony, rain)",
-    "L(tony, snow)",
-    "(¬A(x), S(x), C(x))",
-    "(¬C(y), ¬L(y, rain))",
-    "(L(z, snow), ¬S(z))",
-    "(¬L(tony, u), ¬L(mike, u))",
-    "(L(tony, v), L(mike, v))",
-    "(¬A(w), ¬C(w), S(w))"
-]
-
-simulate_resolution(clauses)
+# 示例测试
+print(unify_atoms(('A(x)',), ('L(tony)',)))
