@@ -1,6 +1,6 @@
 # ResolutionFOL
 
-- `myResolutionFOL.py`: Improved version (main logic encapsulated & modified). 
+- `code/myResolutionFOL.py`: Improved version (main logic encapsulated & modified). 
 
   The improved version is able to handle complex formulas like:
 
@@ -14,6 +14,6 @@ $$
 
 - `Tutor.pdf`: Tutor slides.
 
-- `test.py`: The test function using`myResolutionFOL`.
+- `code/test.py`: The test function using`myResolutionFOL`.
 
   Run the test by the command `python test.py`.
