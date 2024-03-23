@@ -14,4 +14,4 @@ $$
 
 - `code/test.py`: The test function using`myResolutionFOL`.
 
-  Run the test by the command `python test.py`.
+  Run the test by the command `python code/test.py`.
