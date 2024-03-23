@@ -8,6 +8,10 @@ Codes & reports for SYSU artificial intelligence laboratory (DCS315)
 
 - Incorporate your OWN thinking when completing tasks & **DO NOT PLAGIARIZE**.
 
+- `model.docx`: provided model of laboratory report.
+
+- `advise.pdf`: provided advise of laboratory report.
+
 ## License
 
 - This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
